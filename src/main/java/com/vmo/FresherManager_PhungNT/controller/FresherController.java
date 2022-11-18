@@ -29,12 +29,12 @@ public class FresherController {
         return ResponseEntity.ok(fresherService.findAllFresher());
     }
 
-    @PutMapping("/{id}")
-    ResponseEntity<ResponseObjectRequest> updateFresher(@RequestBody Fresher newFresher, @PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(fresherService.updateFresher(newFresher,id));
+    @PutMapping("/{fresherId}")
+    ResponseEntity<ResponseObjectRequest> updateFresher(@RequestBody Fresher newFresher, @PathVariable Long fresherId){
+        return ResponseEntity.status(HttpStatus.OK).body(fresherService.updateFresher(newFresher,fresherId));
     }
-    @DeleteMapping("/{id}")
-    ResponseEntity<ResponseObjectRequest> deleteFresher(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(fresherService.deleteFresher(id));
+    @DeleteMapping("/{fresherId}")
+    ResponseEntity<ResponseObjectRequest> deleteFresher(@PathVariable Long fresherId){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(fresherService.deleteFresher(fresherId));
     }
 }

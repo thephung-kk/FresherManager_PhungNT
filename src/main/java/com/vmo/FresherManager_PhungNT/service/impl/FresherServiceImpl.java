@@ -50,12 +50,12 @@ public class FresherServiceImpl implements FresherService {
                         fresher.setCenterFresherList(newFresher.getCenterFresherList());
                         fresher.setFresherLanguageList(newFresher.getFresherLanguageList());
                         fresher.setAssignmentScoreList(newFresher.getAssignmentScoreList());
-                        return fresherRepository.save(newFresher);
+                        return fresherRepository.save(fresher);
                     }).orElseGet(() -> {
                         newFresher.setId(id);
                         return fresherRepository.save(newFresher);
                     });
-            return new ResponseObjectRequest("Updated", "Fresher with id = " + id + " has been updated", "");
+            return new ResponseObjectRequest("Updated", "Fresher with id = " + id + " has been updated", updateFresher);
         } else {
             return new ResponseObjectRequest("Failed", "Cannot find fresher with id = " + id, "");
         }

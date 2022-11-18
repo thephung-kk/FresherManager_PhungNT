@@ -120,28 +120,28 @@ ALTER TABLE assignment_score
 ALTER TABLE assignment_score
     ADD CONSTRAINT FK_ASSIGNMENT_SCORE_ON_FRESHER FOREIGN KEY (fresher_id) REFERENCES fresher (id);
 
-# INSERT INTO fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUES
-# (1,0,NOW(),NULL,'Phung','2000-12-11','Ha Noi','011111111','Phung@gmail.com');
-# INSERT INTO fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUES
-# (2,0,NOW(),NULL,'Hung','1997-10-15','Ha Noi','0222222222','Hung@gmail.com');
-# INSERT INTO fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUES
-# (3,0,NOW(),NULL,'Nhi','2000-05-03','Ha Noi','0333333333','Nhi@gmail.com');
-#
-#
-# INSERT INTO center(id, deleted, created_on, last_modified, name, code, dob, address) VALUES
-# (1,0,NOW(),NULL,'Center 5','C5','2021-10-05','Floor 10');
-# INSERT INTO center(id, deleted, created_on, last_modified, name, code, dob, address) VALUES
-# (2,0,NOW(),NULL,'Center 18','C18','2021-05-18','Floor 5');
-# INSERT INTO center(id, deleted, created_on, last_modified, name, code, dob, address) VALUES
-# (3,0,NOW(),NULL,'Center 10','C10','2021-10-10','Floor 8');
+INSERT INTO fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUES
+(1,0,NOW(),NULL,'Phung','2000-12-11','Ha Noi','011111111','Phung@gmail.com');
+INSERT INTO fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUES
+(2,0,NOW(),NULL,'Hung','1997-10-15','Ha Noi','0222222222','Hung@gmail.com');
+INSERT INTO fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUES
+(3,0,NOW(),NULL,'Nhi','2000-05-03','Ha Noi','0333333333','Nhi@gmail.com');
 
-#
-# INSERT INTO center_fresher(id, deleted, created_on, last_modified, center_id, fresher_id, start_date, end_date) VALUES
-# (1,0,NOW(),NULL,1,1,'2022-09-15',NULL);
-# INSERT INTO center_fresher(id, deleted, created_on, last_modified, center_id, fresher_id, start_date, end_date) VALUES
-# (2,0,NOW(),NULL,2,2,'2022-10-15',NULL);
-# INSERT INTO center_fresher(id, deleted, created_on, last_modified, center_id, fresher_id, start_date, end_date) VALUES
-# (3,0,NOW(),NULL,3,3,'2022-08-15',NULL);
+
+INSERT INTO center(id, deleted, created_on, last_modified, name, code, dob, address) VALUES
+(1,0,NOW(),NULL,'Center 5','C5','2021-10-05','Floor 10');
+INSERT INTO center(id, deleted, created_on, last_modified, name, code, dob, address) VALUES
+(2,0,NOW(),NULL,'Center 18','C18','2021-05-18','Floor 5');
+INSERT INTO center(id, deleted, created_on, last_modified, name, code, dob, address) VALUES
+(3,0,NOW(),NULL,'Center 10','C10','2021-10-10','Floor 8');
+
+
+INSERT INTO center_fresher(id, deleted, created_on, last_modified, center_id, fresher_id, start_date, end_date) VALUES
+(1,0,NOW(),NULL,1,1,'2022-09-15',NULL);
+INSERT INTO center_fresher(id, deleted, created_on, last_modified, center_id, fresher_id, start_date, end_date) VALUES
+(2,0,NOW(),NULL,2,2,'2022-10-15',NULL);
+INSERT INTO center_fresher(id, deleted, created_on, last_modified, center_id, fresher_id, start_date, end_date) VALUES
+(3,0,NOW(),NULL,3,3,'2022-08-15',NULL);
 
 
 INSERT INTO programming_language(id, deleted, created_on, last_modified, name, description) VALUES
@@ -152,14 +152,14 @@ INSERT INTO programming_language(id, deleted, created_on, last_modified, name, d
 (3,0,NOW(),NULL,'Python','Python language');
 
 
-# INSERT INTO fresher_language(id, deleted, created_on, last_modified, language_id, fresher_id) VALUES
-# (1,0,NOW(),NULL,1,1);
-# INSERT INTO fresher_language(id, deleted, created_on, last_modified, language_id, fresher_id) VALUES
-# (2,0,NOW(),NULL,1,2);
-# INSERT INTO fresher_language(id, deleted, created_on, last_modified, language_id, fresher_id) VALUES
-# (3,0,NOW(),NULL,2,2);
-# INSERT INTO fresher_language(id, deleted, created_on, last_modified, language_id, fresher_id) VALUES
-# (4,0,NOW(),NULL,3,3);
+INSERT INTO fresher_language(id, deleted, created_on, last_modified, language_id, fresher_id) VALUES
+(1,0,NOW(),NULL,1,1);
+INSERT INTO fresher_language(id, deleted, created_on, last_modified, language_id, fresher_id) VALUES
+(2,0,NOW(),NULL,1,2);
+INSERT INTO fresher_language(id, deleted, created_on, last_modified, language_id, fresher_id) VALUES
+(3,0,NOW(),NULL,2,2);
+INSERT INTO fresher_language(id, deleted, created_on, last_modified, language_id, fresher_id) VALUES
+(4,0,NOW(),NULL,3,3);
 
 
 INSERT INTO assignment(id, deleted, created_on, last_modified, percentage, name, description) VALUES
@@ -169,22 +169,22 @@ INSERT INTO assignment(id, deleted, created_on, last_modified, percentage, name,
 INSERT INTO assignment(id, deleted, created_on, last_modified, percentage, name, description) VALUES
 (3,0,NOW(),NULL,40,'Assignment 3', 'Third Assignment');
 #
-#
-# INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
-# (1,0,NOW(),NULL,1,1,8);
-# INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
-# (2,0,NOW(),NULL,2,1,9);
-# INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
-# (3,0,NOW(),NULL,3,1,9);
-# INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
-# (4,0,NOW(),NULL,1,2,7);
-# INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
-# (5,0,NOW(),NULL,2,2,7);
-# INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
-# (6,0,NOW(),NULL,3,2,10);
-# INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
-# (7,0,NOW(),NULL,1,3,9);
-# INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
-# (8,0,NOW(),NULL,2,3,9);
-# INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
-# (9,0,NOW(),NULL,3,3,8);
+
+INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
+(1,0,NOW(),NULL,1,1,8);
+INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
+(2,0,NOW(),NULL,2,1,9);
+INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
+(3,0,NOW(),NULL,3,1,9);
+INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
+(4,0,NOW(),NULL,1,2,7);
+INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
+(5,0,NOW(),NULL,2,2,7);
+INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
+(6,0,NOW(),NULL,3,2,10);
+INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
+(7,0,NOW(),NULL,1,3,9);
+INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
+(8,0,NOW(),NULL,2,3,9);
+INSERT INTO assignment_score(id, deleted, created_on, last_modified, fresher_id, assignment_id, score) VALUES
+(9,0,NOW(),NULL,3,3,8);
