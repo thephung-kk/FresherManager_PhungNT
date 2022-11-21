@@ -8,7 +8,7 @@ import model.response.ResponseObjectRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import model.response.FresherResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -29,6 +29,11 @@ public class FresherController {
         return ResponseEntity.ok(fresherService.findAllFresher());
     }
 
+    @GetMapping("/{fresherId}")
+    public ResponseEntity<FresherResponse> findById(@PathVariable Long fresherId){
+        return ResponseEntity.ok(fresherService.findById(fresherId));
+    }
+
     @PutMapping("/{fresherId}")
     ResponseEntity<ResponseObjectRequest> updateFresher(@RequestBody Fresher newFresher, @PathVariable Long fresherId){
         return ResponseEntity.status(HttpStatus.OK).body(fresherService.updateFresher(newFresher,fresherId));
@@ -37,4 +42,5 @@ public class FresherController {
     ResponseEntity<ResponseObjectRequest> deleteFresher(@PathVariable Long fresherId){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(fresherService.deleteFresher(fresherId));
     }
+
 }

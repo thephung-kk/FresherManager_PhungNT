@@ -1,12 +1,16 @@
 package com.vmo.FresherManager_PhungNT.service.impl;
 
 import com.vmo.FresherManager_PhungNT.entity.Fresher;
+import com.vmo.FresherManager_PhungNT.exception.ApiErrorDetail;
+import com.vmo.FresherManager_PhungNT.exception.EntityNotFoundException;
 import com.vmo.FresherManager_PhungNT.repository.*;
 import com.vmo.FresherManager_PhungNT.service.FresherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import model.request.FresherCreateRequest;
+import model.response.FresherResponse;
 import model.response.ResponseObjectRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,4 +90,26 @@ public class FresherServiceImpl implements FresherService {
                 .map(Fresher::getName)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public FresherResponse findById(Long fresherId) {
+        Fresher fresher = fresherRepository.findById(fresherId)
+                .orElseThrow(() -> new EntityNotFoundException(ApiErrorDetail.builder()
+                        .message("Fresher not found")
+                        .entityName("Fresher")
+                        .fieldName("Id")
+                        .fieldValue(fresherId)
+                        .httpStatus(HttpStatus.NOT_FOUND)
+                        .build()));
+        return FresherResponse.builder()
+                .fresherId(fresher.getId())
+                .fresherName(fresher.getName())
+                .address(fresher.getAddress())
+                .phone(fresher.getPhone())
+                .email(fresher.getEmail())
+                .dob(fresher.getDob())
+                .build();
+    }
+
+
 }
