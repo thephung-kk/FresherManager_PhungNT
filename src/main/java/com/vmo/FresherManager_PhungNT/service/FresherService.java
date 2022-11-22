@@ -14,4 +14,6 @@ public interface FresherService {
     ResponseObjectRequest deleteFresher(Long id);
     List<String> findAllFresher();
     FresherResponse findById(Long fresherId);
+    List<FresherResponse> findByName(String fresherName);
+    List<FresherResponse> findByEmail(String fresherEmail);
 }

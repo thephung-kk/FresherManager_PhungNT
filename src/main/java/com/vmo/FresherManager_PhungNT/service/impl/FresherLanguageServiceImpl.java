@@ -6,10 +6,12 @@ import com.vmo.FresherManager_PhungNT.service.FresherLanguageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import model.request.FresherLanguageCreateRequest;
+import model.response.FresherLanguageResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -25,7 +27,16 @@ public class FresherLanguageServiceImpl implements FresherLanguageService {
     }
 
     @Override
-    public List<String> findAllFresherLanguage() {
-        return null;
+    public List<FresherLanguageResponse> findAllFresherByLanguage(Long languageId) {
+        return fresherLanguageRepository.findAllByLanguage_Id(languageId).stream()
+                .map(fresherLanguage -> FresherLanguageResponse.builder()
+                        .languageId(fresherLanguage.getLanguage().getId())
+                        .languageName(fresherLanguage.getLanguage().getName())
+                        .fresherId(fresherLanguage.getFresher().getId())
+                        .fresherName(fresherLanguage.getFresher().getName())
+                        .build())
+                .collect(Collectors.toList());
+
     }
+
 }

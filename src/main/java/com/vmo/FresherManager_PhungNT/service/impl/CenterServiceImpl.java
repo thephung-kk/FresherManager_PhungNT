@@ -1,7 +1,6 @@
 package com.vmo.FresherManager_PhungNT.service.impl;
 
 import com.vmo.FresherManager_PhungNT.entity.Center;
-import com.vmo.FresherManager_PhungNT.entity.Fresher;
 import com.vmo.FresherManager_PhungNT.repository.CenterFresherRepository;
 import com.vmo.FresherManager_PhungNT.repository.CenterRepository;
 import com.vmo.FresherManager_PhungNT.service.CenterService;
@@ -37,7 +36,8 @@ public class CenterServiceImpl implements CenterService {
 
     @Override
     public List<String> findAllCenter() {
-        return centerRepository.findAll().stream().map(Center::getName).collect(Collectors.toList());
+        return centerRepository.findAll()
+                .stream().map(Center::getName).collect(Collectors.toList());
     }
 
     @Override

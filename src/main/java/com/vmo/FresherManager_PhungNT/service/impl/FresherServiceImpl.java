@@ -111,5 +111,30 @@ public class FresherServiceImpl implements FresherService {
                 .build();
     }
 
+    @Override
+    public List<FresherResponse> findByName(String fresherName) {
+        return fresherRepository.findAllByName(fresherName).stream()
+                .map(fresher -> FresherResponse.builder()
+                        .fresherId(fresher.getId())
+                        .address(fresher.getAddress())
+                        .dob(fresher.getDob())
+                        .email(fresher.getEmail())
+                        .phone(fresher.getPhone()).build())
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<FresherResponse> findByEmail(String fresherEmail) {
+        return fresherRepository.findAllByEmail(fresherEmail).stream()
+                .map(fresher -> FresherResponse.builder()
+                        .fresherId(fresher.getId())
+                        .address(fresher.getAddress())
+                        .dob(fresher.getDob())
+                        .email(fresher.getEmail())
+                        .phone(fresher.getPhone()).build())
+                .collect(Collectors.toList());
+    }
+
 
 }
