@@ -190,5 +190,10 @@ public class FresherServiceImpl implements FresherService {
                         ,list);
     }
 
+    @Override
+    public int countAllFresher() {
+        return fresherRepository.findAll().size();
+    }
+
 
 }

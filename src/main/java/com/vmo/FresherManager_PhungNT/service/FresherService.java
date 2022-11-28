@@ -16,4 +16,5 @@ public interface FresherService {
     ResponseObjectRequest findById(Long fresherId);
     ResponseObjectRequest findByName(String fresherName);
     ResponseObjectRequest findByEmail(String fresherEmail);
+    int countAllFresher();
 }
