@@ -10,7 +10,7 @@ import java.util.List;
 public interface CenterFresherRepository extends JpaRepository<CenterFresher,Long>{
     long deleteByFresherId(Long id);
 
-    List<CenterFresher> findAllById(Long centerId);
+    List<CenterFresher> findAllByCenterId(Long centerId);
 
     long deleteByCenterId(Long id);
 }

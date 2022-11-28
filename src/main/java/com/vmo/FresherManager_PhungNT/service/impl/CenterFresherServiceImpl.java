@@ -28,8 +28,8 @@ public class CenterFresherServiceImpl implements CenterFresherService {
     }
 
     @Override
-    public List<CenterFresherResponse> findAllFreshersById(Long centerId) {
-        return centerFresherRepository.findAllById(centerId).stream()
+    public List<CenterFresherResponse> findAllFreshersByCenterId(Long centerId) {
+        return centerFresherRepository.findAllByCenterId(centerId).stream()
                 .map(centerFresher -> CenterFresherResponse.builder()
                         .centerId(centerFresher.getCenter().getId())
                         .centerName(centerFresher.getCenter().getName())

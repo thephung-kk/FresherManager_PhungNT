@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface AssignmentScoreRepository extends JpaRepository<AssignmentScore,Long>{
     long deleteByFresherId(Long id);
+    List<AssignmentScore> findAllByFresherId(Long fresherId);
 }

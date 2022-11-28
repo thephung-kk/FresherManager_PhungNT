@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CenterFresherService {
     CenterFresher createCenterFresher(CenterFresherCreateRequest centerFresherCreateRequest);
-    List<CenterFresherResponse> findAllFreshersById(Long centerId);
+    List<CenterFresherResponse> findAllFreshersByCenterId(Long centerId);
 }

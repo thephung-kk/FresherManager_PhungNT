@@ -1,10 +1,12 @@
 package com.vmo.FresherManager_PhungNT.controller;
 
 import com.vmo.FresherManager_PhungNT.entity.Fresher;
+import com.vmo.FresherManager_PhungNT.service.AssignmentScoreService;
 import com.vmo.FresherManager_PhungNT.service.FresherLanguageService;
 import com.vmo.FresherManager_PhungNT.service.FresherService;
 import lombok.RequiredArgsConstructor;
 import model.request.FresherCreateRequest;
+import model.response.AssignmentScoreResponse;
 import model.response.FresherLanguageResponse;
 import model.response.ResponseObjectRequest;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.util.List;
 public class FresherController {
     private final FresherService fresherService;
     private final FresherLanguageService fresherLanguageService;
+    private final AssignmentScoreService assignmentScoreService;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Fresher> createFresher(@RequestBody @Valid FresherCreateRequest fresherCreateRequest) {
@@ -49,6 +53,11 @@ public class FresherController {
     @GetMapping("/email/{fresherEmail}")
     public ResponseEntity<List<FresherResponse>> findByEmail(@PathVariable String fresherEmail){
         return ResponseEntity.ok(fresherService.findByEmail(fresherEmail));
+    }
+
+    @GetMapping("/avgScore/{fresherId}")
+    public ResponseEntity<ResponseObjectRequest> finalScore(@PathVariable Long fresherId ){
+        return ResponseEntity.ok(assignmentScoreService.finalScore(fresherId));
     }
 
     @PutMapping("/{fresherId}")

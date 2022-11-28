@@ -35,7 +35,7 @@ public class CenterController {
 
     @GetMapping("/{centerId}/freshers")
     public ResponseEntity<List<CenterFresherResponse>> getAllFresherByCenter(@PathVariable  Long centerId) {
-        return ResponseEntity.ok(centerFresherService.findAllFreshersById(centerId));
+        return ResponseEntity.ok(centerFresherService.findAllFreshersByCenterId(centerId));
     }
 
     @DeleteMapping("{centerId}")

@@ -1,11 +1,12 @@
 package com.vmo.FresherManager_PhungNT.service;
 
-import com.vmo.FresherManager_PhungNT.entity.AssignmentScore;
-import model.request.AssignmentScoreCreateRequest;
+
+import model.response.AssignmentScoreResponse;
+import model.response.ResponseObjectRequest;
 
 import java.util.List;
 
 public interface AssignmentScoreService {
-    AssignmentScore createAssignmentScore(AssignmentScoreCreateRequest assignmentScoreCreateRequest);
-    List<String> findAllAssignmentScore();
+    List<AssignmentScoreResponse.ScoreResponse> findAllAssignmentByFresherId(Long id);
+    ResponseObjectRequest finalScore(Long fresherId);
 }
