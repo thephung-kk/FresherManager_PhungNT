@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface FresherLanguageRepository extends JpaRepository<FresherLanguage,Long>{
     long deleteByFresherId(Long id);
-    List<FresherLanguage> findAllByLanguage_Id(Long language);
+    List<FresherLanguage> findAllByLanguage_Id(Long languageId);
+    List<FresherLanguage> findAllByLanguage_Name(String languageName);
 }

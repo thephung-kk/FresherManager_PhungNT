@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,7 +62,14 @@ public class FresherServiceImpl implements FresherService {
                     });
             return new ResponseObjectRequest("Updated", "Fresher with id = " + id + " has been updated", updateFresher);
         } else {
-            return new ResponseObjectRequest("Failed", "Cannot find fresher with id = " + id, "");
+            throw
+                    new EntityNotFoundException(ApiErrorDetail.builder()
+                            .message("Your search '"+ id +"' did not match any fresher.")
+                            .entityName("Fresher")
+                            .fieldName("id")
+                            .fieldValue(id)
+                            .httpStatus(HttpStatus.NOT_FOUND)
+                            .build());
         }
 
     }
@@ -78,8 +86,14 @@ public class FresherServiceImpl implements FresherService {
             return new ResponseObjectRequest(
                     "deleted", "Fresher with id = " + id + " has been deleted", "");
         } else {
-            return new ResponseObjectRequest(
-                    "failed", "Cannot find fresher with id = " + id, "");
+            throw
+                    new EntityNotFoundException(ApiErrorDetail.builder()
+                            .message("Your search '"+ id +"' did not match any fresher.")
+                            .entityName("Fresher")
+                            .fieldName("Id")
+                            .fieldValue(id)
+                            .httpStatus(HttpStatus.NOT_FOUND)
+                            .build());
         }
     }
 
@@ -91,29 +105,69 @@ public class FresherServiceImpl implements FresherService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
-    public FresherResponse findById(Long fresherId) {
-        Fresher fresher = fresherRepository.findById(fresherId)
-                .orElseThrow(() -> new EntityNotFoundException(ApiErrorDetail.builder()
-                        .message("Fresher not found")
-                        .entityName("Fresher")
-                        .fieldName("Id")
-                        .fieldValue(fresherId)
-                        .httpStatus(HttpStatus.NOT_FOUND)
-                        .build()));
-        return FresherResponse.builder()
-                .fresherId(fresher.getId())
-                .fresherName(fresher.getName())
-                .address(fresher.getAddress())
-                .phone(fresher.getPhone())
-                .email(fresher.getEmail())
-                .dob(fresher.getDob())
-                .build();
+    public ResponseObjectRequest findById(Long fresherId) {
+        boolean exist = fresherRepository.existsById(fresherId);
+        if(exist) {
+            Fresher fresher = fresherRepository.findById(fresherId)
+                    .orElseThrow(() -> new EntityNotFoundException(ApiErrorDetail.builder()
+                            .message("Fresher not found")
+                            .entityName("Fresher")
+                            .fieldName("Id")
+                            .fieldValue(fresherId)
+                            .httpStatus(HttpStatus.NOT_FOUND)
+                            .build()));
+            FresherResponse f = FresherResponse.builder()
+                    .fresherId(fresher.getId())
+                    .fresherName(fresher.getName())
+                    .address(fresher.getAddress())
+                    .phone(fresher.getPhone())
+                    .email(fresher.getEmail())
+                    .dob(fresher.getDob())
+                    .build();
+            return new ResponseObjectRequest("Found", "Fresher has ID = " + fresherId + ": ", f);
+        } else {
+            throw
+                    new EntityNotFoundException(ApiErrorDetail.builder()
+                            .message("Your search '"+ fresherId +"' did not match any fresher.")
+                            .entityName("Fresher")
+                            .fieldName("id")
+                            .fieldValue(fresherId)
+                            .httpStatus(HttpStatus.NOT_FOUND)
+                            .build());
+        }
     }
 
     @Override
-    public List<FresherResponse> findByName(String fresherName) {
-        return fresherRepository.findAllByName(fresherName).stream()
+    public ResponseObjectRequest findByName(String fresherName) {
+        List<FresherResponse> list =  fresherRepository.findFresherByNameContaining(fresherName).stream()
+                .map(fresher -> FresherResponse.builder()
+                        .fresherName(fresher.getName())
+                        .fresherId(fresher.getId())
+                        .address(fresher.getAddress())
+                        .dob(fresher.getDob())
+                        .email(fresher.getEmail())
+                        .phone(fresher.getPhone()).build())
+                .collect(Collectors.toList());
+        if(list.isEmpty()){
+            throw
+                    new EntityNotFoundException(ApiErrorDetail.builder()
+                            .message("Your search '"+ fresherName +"' did not match any fresher.")
+                            .entityName("Fresher")
+                            .fieldName("name")
+                            .fieldValue(fresherName)
+                            .httpStatus(HttpStatus.NOT_FOUND)
+                            .build());
+        }
+        else return
+                new ResponseObjectRequest("Found","Found "+list.size()+" freshers contain \'" + fresherName+"\'"
+                ,list);
+    }
+
+    @Override
+    public ResponseObjectRequest findByEmail(String fresherEmail) {
+        List<FresherResponse> list =  fresherRepository.findAllByEmail(fresherEmail).stream()
                 .map(fresher -> FresherResponse.builder()
                         .fresherId(fresher.getId())
                         .address(fresher.getAddress())
@@ -121,19 +175,19 @@ public class FresherServiceImpl implements FresherService {
                         .email(fresher.getEmail())
                         .phone(fresher.getPhone()).build())
                 .collect(Collectors.toList());
-
-    }
-
-    @Override
-    public List<FresherResponse> findByEmail(String fresherEmail) {
-        return fresherRepository.findAllByEmail(fresherEmail).stream()
-                .map(fresher -> FresherResponse.builder()
-                        .fresherId(fresher.getId())
-                        .address(fresher.getAddress())
-                        .dob(fresher.getDob())
-                        .email(fresher.getEmail())
-                        .phone(fresher.getPhone()).build())
-                .collect(Collectors.toList());
+        if(list.isEmpty()){
+            throw
+                    new EntityNotFoundException(ApiErrorDetail.builder()
+                            .message("Your search '"+ fresherEmail +"' did not match any fresher.")
+                            .entityName("Fresher")
+                            .fieldName("Email")
+                            .fieldValue(fresherEmail)
+                            .httpStatus(HttpStatus.NOT_FOUND)
+                            .build());
+        }
+        else return
+                new ResponseObjectRequest("Found","Found "+list.size()+" freshers has email: \'" + fresherEmail+"\'"
+                        ,list);
     }
 
 

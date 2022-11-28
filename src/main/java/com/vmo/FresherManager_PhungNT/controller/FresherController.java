@@ -36,22 +36,26 @@ public class FresherController {
     }
 
     @GetMapping("/id/{fresherId}")
-    public ResponseEntity<FresherResponse> findById(@PathVariable Long fresherId){
+    public ResponseEntity<ResponseObjectRequest> findById(@PathVariable Long fresherId){
         return ResponseEntity.ok(fresherService.findById(fresherId));
     }
 
-    @GetMapping("/language/{languageId}")
-    public ResponseEntity<List<FresherLanguageResponse>> findByLanguage(@PathVariable Long languageId){
-        return ResponseEntity.ok(fresherLanguageService.findAllFresherByLanguage(languageId));
+    @GetMapping("/languageId/{languageId}")
+    public ResponseEntity<ResponseObjectRequest> findByLanguageId(@PathVariable Long languageId){
+        return ResponseEntity.ok(fresherLanguageService.findAllFresherByLanguageID(languageId));
+    }
+    @GetMapping("/languageName/{languageName}")
+    public ResponseEntity<ResponseObjectRequest> findByLanguageName(@PathVariable String languageName){
+        return ResponseEntity.ok(fresherLanguageService.findAllFresherByLanguage(languageName));
     }
 
     @GetMapping("/name/{fresherName}")
-    public ResponseEntity<List<FresherResponse>> findByName(@PathVariable String fresherName){
+    public ResponseEntity<ResponseObjectRequest> findByName(@PathVariable String fresherName){
         return ResponseEntity.ok(fresherService.findByName(fresherName));
     }
 
     @GetMapping("/email/{fresherEmail}")
-    public ResponseEntity<List<FresherResponse>> findByEmail(@PathVariable String fresherEmail){
+    public ResponseEntity<ResponseObjectRequest> findByEmail(@PathVariable String fresherEmail){
         return ResponseEntity.ok(fresherService.findByEmail(fresherEmail));
     }
 

@@ -13,7 +13,7 @@ public interface FresherService {
     ResponseObjectRequest updateFresher(Fresher newFresher, Long id);
     ResponseObjectRequest deleteFresher(Long id);
     List<String> findAllFresher();
-    FresherResponse findById(Long fresherId);
-    List<FresherResponse> findByName(String fresherName);
-    List<FresherResponse> findByEmail(String fresherEmail);
+    ResponseObjectRequest findById(Long fresherId);
+    ResponseObjectRequest findByName(String fresherName);
+    ResponseObjectRequest findByEmail(String fresherEmail);
 }
