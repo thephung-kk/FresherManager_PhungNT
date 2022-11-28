@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @Builder
 public class AssignmentScoreResponse {
-    private Integer avgScore;
+    private Double avgScore;
     private List<ScoreResponse> scoreResponseList;
 
     @Getter

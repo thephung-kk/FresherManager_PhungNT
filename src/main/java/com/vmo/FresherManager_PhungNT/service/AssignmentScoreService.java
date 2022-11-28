@@ -9,4 +9,6 @@ import java.util.List;
 public interface AssignmentScoreService {
     List<AssignmentScoreResponse.ScoreResponse> findAllAssignmentByFresherId(Long id);
     ResponseObjectRequest finalScore(Long fresherId);
+    Double avgScore(Long fresherID);
+    ResponseObjectRequest findAllFresherByAvgScore(Long score);
 }

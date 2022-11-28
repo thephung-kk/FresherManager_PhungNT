@@ -71,6 +71,11 @@ public class FresherController {
         return ResponseEntity.ok(assignmentScoreService.finalScore(fresherId));
     }
 
+    @GetMapping("/overAvgScore/{score}")
+    public ResponseEntity<ResponseObjectRequest> findAllFresherByAvgScore(@PathVariable Long score) {
+        return ResponseEntity.ok(assignmentScoreService.findAllFresherByAvgScore(score));
+    }
+
     @PutMapping("/{fresherId}")
     ResponseEntity<ResponseObjectRequest> updateFresher(@RequestBody Fresher newFresher, @PathVariable Long fresherId) {
         return ResponseEntity.status(HttpStatus.OK).body(fresherService.updateFresher(newFresher, fresherId));
