@@ -1,10 +1,12 @@
 package com.vmo.FresherManager_PhungNT.controller;
 
 import com.vmo.FresherManager_PhungNT.entity.Center;
+import com.vmo.FresherManager_PhungNT.entity.CenterFresher;
 import com.vmo.FresherManager_PhungNT.service.CenterFresherService;
 import com.vmo.FresherManager_PhungNT.service.CenterService;
 import lombok.RequiredArgsConstructor;
 import model.request.CenterCreateRequest;
+import model.request.CenterFresherCreateRequest;
 import model.response.CenterFresherResponse;
 import model.response.ResponseObjectRequest;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,7 @@ public class CenterController {
     private final CenterService centerService;
     private final CenterFresherService centerFresherService;
 
-    @PostMapping
+    @PostMapping("/createCenter")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Center> createCenter(@RequestBody @Valid CenterCreateRequest centerCreateRequest) {
         return ResponseEntity.ok(centerService.createCenter(centerCreateRequest));
@@ -48,5 +50,10 @@ public class CenterController {
         return ResponseEntity.status(HttpStatus.OK).body(centerService.updateCenter(newCenter, centerId));
     }
 
+    @PostMapping("/addFresherToCenter")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<ResponseObjectRequest> addFresherToCenter(@RequestBody @Valid CenterFresherCreateRequest centerFresherCreateRequest) {
+        return ResponseEntity.ok(centerFresherService.addFresherToCenter(centerFresherCreateRequest));
+    }
 
 }
