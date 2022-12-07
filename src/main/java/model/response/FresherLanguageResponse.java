@@ -4,12 +4,25 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Builder
-public class FresherLanguageResponse {
-    private Long languageId;
-    private String languageName;
-    private Long fresherId;
-    private String fresherName;
+public record FresherLanguageResponse(Long languageId,String languageName,Long fresherId,String fresherName) {
+    @Override
+    public Long languageId() {
+        return languageId;
+    }
+
+    @Override
+    public String languageName() {
+        return languageName;
+    }
+
+    @Override
+    public Long fresherId() {
+        return fresherId;
+    }
+
+    @Override
+    public String fresherName() {
+        return fresherName;
+    }
 }

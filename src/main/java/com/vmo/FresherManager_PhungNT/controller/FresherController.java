@@ -6,8 +6,6 @@ import com.vmo.FresherManager_PhungNT.service.FresherLanguageService;
 import com.vmo.FresherManager_PhungNT.service.FresherService;
 import lombok.RequiredArgsConstructor;
 import model.request.FresherCreateRequest;
-import model.response.AssignmentScoreResponse;
-import model.response.FresherLanguageResponse;
 import model.response.ResponseObjectRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,12 +35,12 @@ public class FresherController {
     }
 
     @GetMapping("/countAll")
-    public ResponseEntity<Integer> countAllFresher() {
+    public ResponseEntity<ResponseObjectRequest> countAllFresher() {
         return ResponseEntity.ok(fresherService.countAllFresher());
     }
 
     @GetMapping("/id/{fresherId}")
-    public ResponseEntity<ResponseObjectRequest> findById(@PathVariable Long fresherId) {
+    public ResponseEntity<FresherResponse> findById(@PathVariable Long fresherId) {
         return ResponseEntity.ok(fresherService.findById(fresherId));
     }
 
@@ -57,12 +55,12 @@ public class FresherController {
     }
 
     @GetMapping("/name/{fresherName}")
-    public ResponseEntity<ResponseObjectRequest> findByName(@PathVariable String fresherName) {
+    public ResponseEntity<List<FresherResponse>> findByName(@PathVariable String fresherName) {
         return ResponseEntity.ok(fresherService.findByName(fresherName));
     }
 
     @GetMapping("/email/{fresherEmail}")
-    public ResponseEntity<ResponseObjectRequest> findByEmail(@PathVariable String fresherEmail) {
+    public ResponseEntity<List<FresherResponse>> findByEmail(@PathVariable String fresherEmail) {
         return ResponseEntity.ok(fresherService.findByEmail(fresherEmail));
     }
 
@@ -77,13 +75,13 @@ public class FresherController {
     }
 
     @PutMapping("/{fresherId}")
-    ResponseEntity<ResponseObjectRequest> updateFresher(@RequestBody Fresher newFresher, @PathVariable Long fresherId) {
+    public ResponseEntity<FresherResponse> updateFresher(@RequestBody Fresher newFresher, @PathVariable Long fresherId) {
         return ResponseEntity.status(HttpStatus.OK).body(fresherService.updateFresher(newFresher, fresherId));
     }
 
     @DeleteMapping("/{fresherId}")
-    ResponseEntity<ResponseObjectRequest> deleteFresher(@PathVariable Long fresherId) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(fresherService.deleteFresher(fresherId));
+    public ResponseEntity<ResponseObjectRequest> deleteFresher(@PathVariable Long fresherId) {
+        return ResponseEntity.status(HttpStatus.OK).body(fresherService.deleteFresher(fresherId));
     }
 
 }

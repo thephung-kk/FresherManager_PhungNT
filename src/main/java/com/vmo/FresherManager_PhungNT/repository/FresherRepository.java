@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface FresherRepository extends JpaRepository<Fresher,Long> {
     List<Fresher> findFresherByNameContaining(String fresherName);
-    List<Fresher> findAllByEmail(String fresherEmail);
+    List<Fresher> findAllByEmailContaining(String fresherEmail);
+
+
 }

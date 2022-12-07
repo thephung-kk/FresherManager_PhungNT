@@ -10,11 +10,14 @@ import java.util.List;
 public interface FresherService {
 
     Fresher createFresher(FresherCreateRequest fresherCreateRequest);
-    ResponseObjectRequest updateFresher(Fresher newFresher, Long id);
-    ResponseObjectRequest deleteFresher(Long id);
     List<String> findAllFresher();
-    ResponseObjectRequest findById(Long fresherId);
-    ResponseObjectRequest findByName(String fresherName);
-    ResponseObjectRequest findByEmail(String fresherEmail);
-    int countAllFresher();
+    FresherResponse findById(Long fresherId); //
+    List<FresherResponse> findByName(String fresherName); //
+
+    ResponseObjectRequest deleteFresher(Long id);
+
+    ResponseObjectRequest countAllFresher();
+    List<FresherResponse> findByEmail(String fresherEmail); //
+    FresherResponse updateFresher(Fresher newFresher, Long id); //
+
 }
