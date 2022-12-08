@@ -43,7 +43,8 @@ public class FresherServiceImpl implements FresherService {
 
     @Override
     public FresherResponse updateFresher(Fresher newFresher, Long fresherId) {
-        Fresher updatedFresher = fresherRepository.findById(fresherId).map(fresher -> {
+        Fresher updatedFresher = fresherRepository.findById(fresherId)
+                .map(fresher -> {
                     fresher.setName(newFresher.getName());
                     fresher.setDob(newFresher.getDob());
                     fresher.setAddress(newFresher.getAddress());

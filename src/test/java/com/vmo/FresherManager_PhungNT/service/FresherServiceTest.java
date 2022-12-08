@@ -144,4 +144,45 @@ class FresherServiceTest {
             fresherService.findByEmail("Phung@gmaill.com");
         });
     }
+
+    @Test
+    @DisplayName("Test updateFresher Success")
+    void testUpdateFresherSuccess() {
+        Fresher johnFresher = Fresher.builder()
+                .id(1L).name("John1").address("123 Street1").email("john1@email.com")
+                .build();
+        Fresher newJohnFresher = Fresher.builder()
+                .id(1L).name("John2").address("123 Street2").email("john2@email.com")
+                .build();
+        // Return the mocked data when retrieving
+        when(fresherRepository.findById(1L)).thenReturn(Optional.of(johnFresher));
+        when(fresherRepository.save(johnFresher)).thenReturn(newJohnFresher);
+
+        //  Execute the service call
+        FresherResponse updated = fresherService.updateFresher(newJohnFresher,1L);
+
+        assertEquals(updated.fresherId(), newJohnFresher.getId());
+        assertEquals(updated.dob(), newJohnFresher.getDob());
+        assertEquals(updated.fresherName(), newJohnFresher.getName());
+        assertEquals(updated.phone(), newJohnFresher.getPhone());
+        assertEquals(updated.email(), newJohnFresher.getEmail());
+        assertEquals(updated.address(), newJohnFresher.getAddress());
+    }
+
+    @Test
+    @DisplayName("Test updateFresher Fail")
+    void testUpdateFresherFail() {
+        Fresher newJohnFresher = Fresher.builder()
+                .id(1L).name("John2").address("123 Street2").email("john2@email.com")
+                .build();
+
+        // Return the mocked data when retrieving
+        when(fresherRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // Expect fail
+        assertThrows(EntityNotFoundException.class, () -> {
+            fresherService.updateFresher(newJohnFresher,anyLong());
+        });
+
+    }
 }
