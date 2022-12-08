@@ -1,13 +1,17 @@
 package com.vmo.FresherManager_PhungNT.service.impl;
 
 import com.vmo.FresherManager_PhungNT.entity.Center;
+import com.vmo.FresherManager_PhungNT.exception.ApiErrorDetail;
+import com.vmo.FresherManager_PhungNT.exception.EntityNotFoundException;
 import com.vmo.FresherManager_PhungNT.repository.CenterFresherRepository;
 import com.vmo.FresherManager_PhungNT.repository.CenterRepository;
 import com.vmo.FresherManager_PhungNT.service.CenterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import model.request.CenterCreateRequest;
+import model.response.CenterResponse;
 import model.response.ResponseObjectRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,10 +45,8 @@ public class CenterServiceImpl implements CenterService {
     }
 
     @Override
-    public ResponseObjectRequest updateCenter(Center newCenter, Long id) {
-        boolean exist = centerRepository.existsById(id);
-        if (exist) {
-            Center updateCenter = centerRepository.findById(id)
+    public CenterResponse updateCenter(Center newCenter, Long centerId) {
+            Center updateCenter = centerRepository.findById(centerId)
                     .map(center -> {
                         center.setAddress(newCenter.getAddress());
                         center.setDob(newCenter.getDob());
@@ -52,14 +54,21 @@ public class CenterServiceImpl implements CenterService {
                         center.setCode(newCenter.getCode());
                         center.setCenterFresherList(newCenter.getCenterFresherList());
                         return centerRepository.save(center);
-                    }).orElseGet(() -> {
-                        newCenter.setId(id);
-                        return centerRepository.save(newCenter);
-                    });
-            return new ResponseObjectRequest("Updated", "Center with id = " + id + " has been updated", updateCenter);
-        } else {
-            return new ResponseObjectRequest("Failed", "Cannot find center with id = " + id, "");
-        }
+                    }).orElseThrow(() -> new EntityNotFoundException(ApiErrorDetail.builder()
+                            .message("Center not found")
+                            .entityName("Center")
+                            .fieldName("Id")
+                            .fieldValue(centerId)
+                            .httpStatus(HttpStatus.NOT_FOUND)
+                            .build()));
+         CenterResponse c = CenterResponse.builder()
+                 .centerId(updateCenter.getId())
+                 .centerName(updateCenter.getName())
+                 .centerCode(updateCenter.getCode())
+                 .dob(updateCenter.getDob())
+                 .address(updateCenter.getAddress())
+                 .build();
+         return c;
     }
 
     @Transactional

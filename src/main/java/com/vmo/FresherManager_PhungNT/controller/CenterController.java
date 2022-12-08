@@ -1,13 +1,13 @@
 package com.vmo.FresherManager_PhungNT.controller;
 
 import com.vmo.FresherManager_PhungNT.entity.Center;
-import com.vmo.FresherManager_PhungNT.entity.CenterFresher;
 import com.vmo.FresherManager_PhungNT.service.CenterFresherService;
 import com.vmo.FresherManager_PhungNT.service.CenterService;
 import lombok.RequiredArgsConstructor;
 import model.request.CenterCreateRequest;
 import model.request.CenterFresherCreateRequest;
 import model.response.CenterFresherResponse;
+import model.response.CenterResponse;
 import model.response.ResponseObjectRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +46,7 @@ public class CenterController {
     }
 
     @PutMapping("{centerId}")
-    public ResponseEntity<ResponseObjectRequest> updateCenter(@RequestBody Center newCenter, @PathVariable Long centerId){
+    public ResponseEntity<CenterResponse> updateCenter(@RequestBody Center newCenter, @PathVariable Long centerId){
         return ResponseEntity.status(HttpStatus.OK).body(centerService.updateCenter(newCenter, centerId));
     }
 
