@@ -6,6 +6,7 @@ import com.vmo.FresherManager_PhungNT.service.FresherLanguageService;
 import com.vmo.FresherManager_PhungNT.service.FresherService;
 import lombok.RequiredArgsConstructor;
 import model.request.FresherCreateRequest;
+import model.response.FresherLanguageResponse;
 import model.response.ResponseObjectRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,12 +46,12 @@ public class FresherController {
     }
 
     @GetMapping("/languageId/{languageId}")
-    public ResponseEntity<ResponseObjectRequest> findByLanguageId(@PathVariable Long languageId) {
+    public ResponseEntity<List<FresherLanguageResponse>> findByLanguageId(@PathVariable Long languageId) {
         return ResponseEntity.ok(fresherLanguageService.findAllFresherByLanguageID(languageId));
     }
 
     @GetMapping("/languageName/{languageName}")
-    public ResponseEntity<ResponseObjectRequest> findByLanguageName(@PathVariable String languageName) {
+    public ResponseEntity<List<FresherLanguageResponse>> findByLanguageName(@PathVariable String languageName) {
         return ResponseEntity.ok(fresherLanguageService.findAllFresherByLanguage(languageName));
     }
 
