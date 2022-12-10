@@ -37,7 +37,7 @@ class CenterFresherServiceTest {
 
     @Test
     @DisplayName("Test addFresherToCenter Success")
-    void testAddFresherToCenter(){
+    void testAddFresherToCenterSuccess(){
         Center c5Center = Center.builder()
                 .id(1L).name("Center 5").code("c5").dob(LocalDate.parse("2022-10-15")).address("Floor 10")
                 .build();
@@ -59,5 +59,38 @@ class CenterFresherServiceTest {
         //  Execute the service call
         ResponseObjectRequest reponseAddFresherToCenter = centerFresherService.addFresherToCenter(centerFresherCreateRequest);
         assertEquals(reponseAddFresherToCenter.getStatus(),"Successed");
+    }
+
+    @Test
+    @DisplayName("Test addFresherToCenter fail byCenter")
+    void testAddFresherToCenterFail1(){
+        CenterFresherCreateRequest centerFresherCreateRequest = new CenterFresherCreateRequest();
+        centerFresherCreateRequest.setCenterID(1L);
+        centerFresherCreateRequest.setFresherID(1L);
+        centerFresherCreateRequest.setEndDate(LocalDate.parse("2022-12-16"));
+        centerFresherCreateRequest.setStartDate(LocalDate.parse("2022-11-16"));
+
+        // Return the mocked data when retrieving
+        when(fresherRepository.existsById(1L)).thenReturn(true);
+        when(centerRepository.existsById(1L)).thenReturn(false);
+        //  Execute the service call
+        ResponseObjectRequest reponseAddFresherToCenter = centerFresherService.addFresherToCenter(centerFresherCreateRequest);
+        assertEquals(reponseAddFresherToCenter.getStatus(),"Failed");
+    }
+    @Test
+    @DisplayName("Test addFresherToCenter fail byFresher")
+    void testAddFresherToCenterFail2(){
+        CenterFresherCreateRequest centerFresherCreateRequest = new CenterFresherCreateRequest();
+        centerFresherCreateRequest.setCenterID(1L);
+        centerFresherCreateRequest.setFresherID(1L);
+        centerFresherCreateRequest.setEndDate(LocalDate.parse("2022-12-16"));
+        centerFresherCreateRequest.setStartDate(LocalDate.parse("2022-11-16"));
+
+        // Return the mocked data when retrieving
+        when(fresherRepository.existsById(1L)).thenReturn(false);
+        when(centerRepository.existsById(1L)).thenReturn(true);
+        //  Execute the service call
+        ResponseObjectRequest reponseAddFresherToCenter = centerFresherService.addFresherToCenter(centerFresherCreateRequest);
+        assertEquals(reponseAddFresherToCenter.getStatus(),"Failed");
     }
 }
